@@ -1,10 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Korays Website</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Koray Coban</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #1a1a1a;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    .section {
+      margin-top: 40px;
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #777;
+    }
+
+    a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .project-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .project-list li {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hallo, das ist meine Seite!</h1>
-  <p>Hier könnte dein Wordle oder Lebenslauf stehen.</p>
+  <header>
+    <h1>Koray Coban</h1>
+    <p>Informatikstudent • Webentwicklung • Projekte</p>
+  </header>
+
+  <main>
+    <section class="section">
+      <h2>Über mich</h2>
+      <p>
+        Ich studiere Informatik in Mainz und interessiere mich für Webentwicklung, Spiele und KI. Auf dieser Seite findest du Informationen über mich und meine Projekte.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Projekte</h2>
+      <ul class="project-list">
+        <li><strong>Wordle in Python</strong> – <em>Demnächst verfügbar hier auf der Website</em></li>
+        <li><strong>Persönliche Website</strong> – Diese Seite hier, gehostet über GitHub Pages mit eigener Domain</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Kontakt</h2>
+      <p>
+        Du kannst mich per Mail erreichen: <a href="mailto:koray@example.com">koray@example.com</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Koray Coban – Alle Rechte vorbehalten</p>
+  </footer>
 </body>
 </html>
