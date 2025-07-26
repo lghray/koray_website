@@ -20,7 +20,7 @@
     .letter-box {
         width: 60px;
         height: 60px;
-        border: 2px solid;
+        border: 2px solid gray; 
         font-size: 32px;
         line-height: 50px;
         text-align: center;
@@ -31,11 +31,33 @@
 <body>
   <h1 class="seite_ueberschrift">WORDLE</h1>
   <div class = "letter-container">
-    <div class="letter-box"></div>
-    <div class="letter-box"></div>
-    <div class="letter-box"></div>
-    <div class="letter-box"></div>
-    <div class="letter-box"></div>
+    <input class="letter-box" type="text" maxlength="1"></input>
+    <input class="letter-box" type="text" maxlength="1"></input>
+    <input class="letter-box" type="text" maxlength="1"></input>
+    <input class="letter-box" type="text" maxlength="1"></input>
+    <input class="letter-box" type="text" maxlength="1"></input>
   </div>
+
+  <script>
+  const inputs = document.querySelectorAll(".letter-box");
+
+  inputs.forEach((input, index) => {
+    input.addEventListener("input", () => {
+      if (input.value.length === 1) {
+        if (index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+      }
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && input.value === "") {
+        if (index > 0) {
+          inputs[index - 1].focus();
+        }
+      }
+    });
+  });
+</script>
 </body>
 </html>
