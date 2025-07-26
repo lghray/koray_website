@@ -84,16 +84,21 @@
         let eingabe = "";
         inputs.forEach(i => eingabe += i.value);
         eingabe = eingabe.toLowerCase()
+        if (eingabe.length < 5) {
+            alert("Wort muss 5 lang sein");
+            return;
+        }
         if (eingabe === wort_today) {
             alert("du bist es junge");
-        }
-        if (eingabe.length() < 6) {
-            alert("Wort muss 5 lang sein")
+            return;
         }
         if (!wortliste.includes(eingabe)) {
-            alert("Kein echtes Wort")
+            alert("Kein echtes Wort");
+            return;
         }
-
+        //else {
+        //
+        //}
         inputs.forEach(i => i.value = "");
         inputs[0].focus();
       }
