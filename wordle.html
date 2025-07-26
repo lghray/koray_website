@@ -60,10 +60,11 @@
     .then(response => response.text())
     .then(text =>{
         wortliste = text.split("\n").map(wort => wort.trim().toLowerCase());
-    });
 
-    let index_today = getDailyIndex(wortliste.length())
-    let wort_today = wortliste[index_today]
+        let index_today = getDailyIndex(wortliste.length)
+        let wort_today = wortliste[index_today]
+        document.getElementById("wortheute").textContent = wort_today
+    });
 
   inputs.forEach((input, index) => {
     input.addEventListener("input", () => {
@@ -105,8 +106,6 @@
       }
     });
   });
-  const h1 = document.getElementById("wortheute");
-  h1.textContent = wort_today
 </script>
 </body>
 </html>
