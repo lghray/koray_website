@@ -56,7 +56,7 @@ function getDailyIndex(wordlistlength) {
 fetch("wortliste.txt")
   .then(response => response.text())
   .then(text => {
-    wortliste = text.split("\n").map(wort => wort.trim().toLowerCase());
+    wortliste = text.split("\n").map(wort => wort.trim().toLowerCase()).filter(wort => wort.length === 5);
     let index_today = getDailyIndex(wortliste.length);
     wort_today = wortliste[index_today];
     document.getElementById("wortheute").textContent = wort_today;
