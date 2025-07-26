@@ -40,72 +40,69 @@
   <h1 id="wortheute">Platzhalter</h1>
 
   <script>
-  const inputs = document.querySelectorAll(".letter-box");
-  let wortliste = [];
+let wortliste = [];
+let wort_today = "";
 
-  function getDailyIndex(wordlistlength) {
-    const today = new Date();
-    const seed_str = today.toISOString().split("T")[0];
-
-    let seed = 0;
-    for (let i = 0; i < seed_str.length; i++) {
-        seed += seed_str.charCodeAt(i);
-    }
-
-    const index = seed % wordlistlength
-    return index;
+function getDailyIndex(wordlistlength) {
+  const today = new Date();
+  const seed_str = today.toISOString().split("T")[0];
+  let seed = 0;
+  for (let i = 0; i < seed_str.length; i++) {
+    seed += seed_str.charCodeAt(i);
   }
+  return seed % wordlistlength;
+}
 
-  fetch("wortliste.txt")
-    .then(response => response.text())
-    .then(text =>{
-        wortliste = text.split("\n").map(wort => wort.trim().toLowerCase());
+fetch("wortliste.txt")
+  .then(response => response.text())
+  .then(text => {
+    wortliste = text.split("\n").map(wort => wort.trim().toLowerCase());
+    let index_today = getDailyIndex(wortliste.length);
+    wort_today = wortliste[index_today];
+    document.getElementById("wortheute").textContent = wort_today;
 
-        let index_today = getDailyIndex(wortliste.length)
-        let wort_today = wortliste[index_today]
-        document.getElementById("wortheute").textContent = wort_today
-    });
+    setupInputListeners();
+  });
+
+function setupInputListeners() {
+  const inputs = document.querySelectorAll(".letter-box");
 
   inputs.forEach((input, index) => {
     input.addEventListener("input", () => {
-      if (input.value.length === 1) {
-        if (index < inputs.length - 1) {
-          inputs[index + 1].focus();
-        }
+      if (input.value.length === 1 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
       }
     });
 
     input.addEventListener("keydown", (e) => {
-      if (e.key === "Backspace" && input.value === "") {
-        if (index > 0) {
-          inputs[index - 1].focus();
-        }
+      if (e.key === "Backspace" && input.value === "" && index > 0) {
+        inputs[index - 1].focus();
       }
 
       if (e.key === "Enter") {
         let eingabe = "";
         inputs.forEach(i => eingabe += i.value);
-        eingabe = eingabe.toLowerCase()
+        eingabe = eingabe.toLowerCase();
+
         if (eingabe.length < 5) {
-            alert("Wort muss 5 lang sein");
-            return;
+          alert("Wort muss 5 lang sein");
+          return;
         }
         if (eingabe === wort_today) {
-            alert("du bist es junge");
-            return;
+          alert("du bist es junge");
+          return;
         }
         if (!wortliste.includes(eingabe)) {
-            alert("Kein echtes Wort");
-            return;
+          alert("Kein echtes Wort");
+          return;
         }
-        //else {
-        //
-        //}
+
         inputs.forEach(i => i.value = "");
         inputs[0].focus();
       }
     });
   });
+}
 </script>
 </body>
 </html>
