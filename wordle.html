@@ -89,7 +89,8 @@ function setupInputListeners() {
         let eingabe = "";
         inputs.forEach(i => eingabe += i.value);
         eingabe = eingabe.toLowerCase();
-
+        let wort_check = [-1, -1, -1, -1, -1];
+        
         if (eingabe.length < 5) {
           alert("Wort muss 5 lang sein");
           return;
@@ -105,7 +106,6 @@ function setupInputListeners() {
         else{
             // muss noch geändert werden, sodass buchstaben richtig und falsch angezeigt werden
             // check every letter
-            let wort_check = [-1, -1, -1, -1, -1];
             let haeufigkeit = {};
             // haeufigkeit dictionary für input erstellen
             inputs.forEach(input => {
