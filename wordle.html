@@ -75,6 +75,7 @@ fetch("wortliste.txt")
   });
 
 function setupInputListeners() {
+  wort_today = "nenne"
   const alleInputs = document.querySelectorAll(".letter-box");
   const inputs = Array.from(alleInputs).slice(-5); // NUR die NEUE Zeile
 
@@ -149,9 +150,9 @@ function setupInputListeners() {
         }
         // Felder einfärben und fixieren
         inputs.forEach((input, index) => {
-          const farbe = wort_check[index] === 1 ? "lightgreen"
-                      : wort_check[index] === 2 ? "yellow"
-                      : "lightslategrey";
+          const farbe = wort_check[index] === 1 ? "#90EE90" //lightgreen
+                      : wort_check[index] === 2 ? "#ffff00" //yellow
+                      : "#778899"; //lightslategrey
           
           input.style.backgroundColor = farbe
           input.style.color = "white"
