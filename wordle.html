@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Wordle by Koray</title>
@@ -22,9 +23,11 @@
         width: 60px;
         height: 60px;
         border: 2px solid gray; 
-        font-size: 32px;
-        line-height: 50px;
+        font-size: 36px;
+        line-height: 60px;
         text-align: center;
+        text-transform: uppercase;
+        font-family: "Noto Sans", sans-serif;
         user-select: none;
     }
   </style>
@@ -145,14 +148,12 @@ function setupInputListeners() {
         }
         // Felder einfärben und fixieren
         inputs.forEach((input, index) => {
-          const buchstabe = input.value
           const farbe = wort_check[index] === 1 ? "green"
                       : wort_check[index] === 2 ? "gold"
                       : "gray";
           
           input.style.backgroundColor = farbe
           input.disabled = true
-          input.value = buchstabe
         })
 
         // Neues Eingabefeld erstellen und in body einfügen
@@ -170,7 +171,7 @@ function setupInputListeners() {
         document.body.appendChild(neueZeile)
         setupInputListeners();
 
-        inputs.forEach(i => i.value = "");
+        //inputs.forEach(i => i.value = "");
         inputs[0].focus();
       }
     });
