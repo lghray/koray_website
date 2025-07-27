@@ -35,7 +35,7 @@
 <body>
   <div style="display: flex; gap: 10px; text-align: center; justify-content: center;">
     <h1 class="seite_ueberschrift">WORDLE</h1>
-    <h2 style="color: gray;position: absolute; top: 7; right: 68;">by Koray</h2>
+    <h2 style="color: gray;position: absolute; top: 15; right: 53;">by Koray</h2>
   </div>
 
   <div class = "letter-container">
@@ -45,8 +45,8 @@
     <input class="letter-box" type="text" maxlength="1"></input>
     <input class="letter-box" type="text" maxlength="1"></input>
   </div>
-  <h1 id="wortheute">Platzhalter</h1>
-  <h1 id="wortheute_check">Platzhalter</h1>
+  <!-- <h1 id="wortheute">Platzhalter</h1> -->
+  <!--<h1 id="wortheute_check">Platzhalter</h1>-->
 
   <script>
 let wortliste = [];
@@ -69,13 +69,11 @@ fetch("wortliste.txt")
     let index_today = getDailyIndex(wortliste.length);
     wort_today = wortliste[index_today];
     document.getElementById("wortheute").textContent = wort_today;
-    wort_today = "nenne"
 
     setupInputListeners();
   });
 
 function setupInputListeners() {
-  wort_today = "nenne"
   const alleInputs = document.querySelectorAll(".letter-box");
   const inputs = Array.from(alleInputs).slice(-5); // NUR die NEUE Zeile
 
