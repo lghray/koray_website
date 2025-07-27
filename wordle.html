@@ -16,6 +16,7 @@
         display: flex;
         gap: 10px;
         justify-content: center;
+        margin-top: 15px;
     }
     .letter-box {
         width: 60px;
@@ -25,6 +26,13 @@
         line-height: 50px;
         text-align: center;
         user-select: none;
+    }
+    .letter-box:disabled {
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+      background-color: gray;
     }
   </style>
 </head>
@@ -90,7 +98,7 @@ function setupInputListeners() {
         inputs.forEach(i => eingabe += i.value);
         eingabe = eingabe.toLowerCase();
         let wort_check = [-1, -1, -1, -1, -1];
-        
+
         if (eingabe.length < 5) {
           alert("Wort muss 5 lang sein");
           return;
@@ -148,9 +156,12 @@ function setupInputListeners() {
                       : wort_check[index] === 2 ? "gold"
                       : "gray";
           
-          input.style.backgroundColor = farbe
-          input.disabled = true
-        })
+          input.style.backgroundColor = farbe;
+          input.disabled = true;
+          input.style.color = "white";
+          input.style.fontWeight = "bold";
+          input.style.textTransform = "uppercase";
+        });
 
         // Neues Eingabefeld erstellen und in body einfügen
         const neueZeile = document.createElement("div");
