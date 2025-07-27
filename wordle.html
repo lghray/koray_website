@@ -29,7 +29,7 @@
   </style>
 </head>
 <body>
-  <div style="display: flex; gap: 10px; text-align: center;">
+  <div style="display: flex; gap: 10px; text-align: center; justify-content: center;">
     <h1 class="seite_ueberschrift">WORDLE</h1>
     <h1 style="color: gray;">by Koray</h1>
   </div>
@@ -70,7 +70,8 @@ fetch("wortliste.txt")
   });
 
 function setupInputListeners() {
-  const inputs = document.querySelectorAll(".letter-box");
+  const alleInputs = document.querySelectorAll(".letter-box");
+  const inputs = Array.from(alleInputs).slice(-5); // NUR die NEUE Zeile
 
   inputs.forEach((input, index) => {
     input.addEventListener("input", () => {
@@ -141,6 +142,31 @@ function setupInputListeners() {
             )
             document.getElementById("wortheute_check").textContent = wort_check;
         }
+        // Felder einfärben und fixieren
+        inputs.forEach((input, index) => {
+          const farbe = wort_check[index] === 1 ? "green"
+                      : wort_check[index] === 2 ? "gold"
+                      : "gray";
+          
+          input.style.backgroundColor = farbe
+          input.disabled = true
+        })
+
+        // Neues Eingabefeld erstellen und in body einfügen
+        const neueZeile = document.createElement("div");
+        neueZeile.classList.add("letter-container");
+
+        for (let i = 0; i < 5; i++) {
+          const neuesInput = document.createElement("input");
+          neuesInput.classList.add("letter-box");
+          neuesInput.setAttribute("type", "text");
+          neuesInput.setAttribute("maxlength", "1");
+          neueZeile.appendChild(neuesInput);
+        }
+
+        document.body.appendChild(neueZeile)
+        setupInputListeners();
+
         inputs.forEach(i => i.value = "");
         inputs[0].focus();
       }
