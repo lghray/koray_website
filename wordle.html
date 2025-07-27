@@ -78,9 +78,8 @@ fetch("wortliste.txt")
   });
 
 function setupInputListeners() {
-  // Hole die letzte Zeile mit Inputs (aktuelle Eingabezeile)
-  const alleInputs = document.querySelectorAll(".letter-container:last-child .letter-box");
-  const inputs = Array.from(alleInputs);
+  const alleInputs = document.querySelectorAll(".letter-box");
+  const inputs = Array.from(alleInputs).slice(-5); // NUR die NEUE Zeile
 
   inputs.forEach((input, index) => {
     input.addEventListener("input", () => {
@@ -95,7 +94,11 @@ function setupInputListeners() {
       }
 
       if (e.key === "Enter") {
-        let eingabe = inputs.map(i => i.value).join("").toLowerCase();
+        let eingabe = "";
+        inputs.forEach(i => eingabe += i.value);
+        eingabe = eingabe.toLowerCase();
+        let wort_check = [-1, -1, -1, -1, -1];
+
         if (eingabe.length < 5) {
           alert("Wort muss 5 lang sein");
           return;
@@ -108,67 +111,91 @@ function setupInputListeners() {
           alert("Kein echtes Wort");
           return;
         }
-
-        // Überprüfe Buchstaben und erzeuge wort_check Array
-        let wort_check = [-1,-1,-1,-1,-1];
-        let haeufigkeit = {};
-        // Frequenzen ermitteln
-        eingabe.split("").forEach(buchstabe => {
-          haeufigkeit[buchstabe] = (haeufigkeit[buchstabe] || 0) + 1;
-        });
-        // Buchstaben markieren
-        eingabe.split("").forEach((buchstabe, i) => {
-          if (buchstabe === wort_today[i]) {
-            wort_check[i] = 1; // richtig
-            haeufigkeit[buchstabe]--;
-          }
-        });
-        eingabe.split("").forEach((buchstabe, i) => {
-          if (wort_check[i] === -1) { // noch nicht bewertet
-            if (wort_today.includes(buchstabe) && haeufigkeit[buchstabe] > 0) {
-              wort_check[i] = 2; // falsch positioniert
-              haeufigkeit[buchstabe]--;
-            } else {
-              wort_check[i] = 0; // falsch
-            }
-          }
-        });
-
-        // Farben setzen & Inputs deaktivieren
-        inputs.forEach((input, i) => {
-          const farbe = wort_check[i] === 1 ? "green" 
-                      : wort_check[i] === 2 ? "gold" 
+        else{
+            // muss noch geändert werden, sodass buchstaben richtig und falsch angezeigt werden
+            // check every letter
+            let haeufigkeit = {};
+            // haeufigkeit dictionary für input erstellen
+            inputs.forEach(input => {
+              const buchstabe = input.value.toLowerCase();
+              if (haeufigkeit[buchstabe]) {
+                haeufigkeit[buchstabe]++;
+              } else {
+                if (wort_today.includes(buchstabe)) {
+                  haeufigkeit[buchstabe] = 1;
+                } else {
+                  haeufigkeit[buchstabe] = 0;
+                }
+              }
+            })
+            // Prüfe buchstaben einzeln
+            inputs.forEach(
+              (input, index) => {
+                const buchstabe = input.value.toLowerCase();
+                const vergleich_buchstabe = wort_today[index].toLowerCase();
+                // Prüfe ob buchstabe richtige stelle
+                if (buchstabe === vergleich_buchstabe) {
+                  // 1 = grün
+                  wort_check[index] = 1;
+                  haeufigkeit[buchstabe]--;
+                }
+                // Prüfe ob buchstabe in wort
+                else if (haeufigkeit[buchstabe] > 0) {
+                  wort_check[index] = 2;
+                  haeufigkeit[buchstabe]--;
+                } else {
+                  wort_check[index] = 0;
+                }
+              }
+            )
+            document.getElementById("wortheute_check").textContent = wort_check;
+        }
+        // Felder einfärben und fixieren
+        inputs.forEach((input, index) => {
+          const farbe = wort_check[index] === 1 ? "green"
+                      : wort_check[index] === 2 ? "gold"
                       : "gray";
+          
           input.disabled = true;
+          input.value = input.value.toUpperCase();
           input.style.backgroundColor = farbe;
           input.style.color = "white";
           input.style.fontWeight = "bold";
           input.style.textTransform = "uppercase";
-          input.value = input.value.toUpperCase();
         });
 
-        // Neue Eingabezeile erzeugen
-        const neueZeile = document.createElement("div");
-        neueZeile.classList.add("letter-container");
-        for (let i=0; i<5; i++) {
-          const newInput = document.createElement("input");
-          newInput.classList.add("letter-box");
-          newInput.type = "text";
-          newInput.maxLength = 1;
-          neueZeile.appendChild(newInput);
-        }
-        document.body.appendChild(neueZeile);
+        // Neues Eingabefeld erstellen und in body einfügen
+        const zeile = document.createElement("div");
+        zeile.classList.add("letter-container");
 
-        // Neue Listener für neue Zeile setzen
+        for (let i = 0; i < 5; i++) {
+          const buchstabe = inputs[i].value.toUpperCase();
+          const farbe = wort_check[i] === 1 ? "green"
+                      : wort_check[i] === 2 ? "gold"
+                      : "gray";
+
+          const box = document.createElement("div");
+          box.classList.add("letter-box");
+          box.textContent = buchstabe;
+          box.style.backgroundColor = farbe;
+          box.style.color = "white";
+          box.style.fontWeight = "bold";
+          box.style.textTransform = "uppercase";
+          box.style.lineHeight = "60px";
+          box.style.border = "2px solid black";
+          zeile.appendChild(box);
+        }
+
+        document.body.appendChild(zeile);
+
         setupInputListeners();
 
-        // Fokus auf erste neue Box
-        neueZeile.querySelector("input").focus();
+        inputs.forEach(i => i.value = "");
+        inputs[0].focus();
       }
     });
   });
 }
-
 </script>
 </body>
 </html>
