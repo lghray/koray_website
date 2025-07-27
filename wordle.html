@@ -35,18 +35,16 @@
 <body>
   <div style="display: flex; gap: 10px; text-align: center; justify-content: center;">
     <h1 class="seite_ueberschrift">WORDLE</h1>
-    <h2 style="color: gray;position: absolute; top: 15; right: 53;">by Koray</h2>
+    <h2 style="color: gray;position: absolute; top: 7px; right: 68px;">by Koray</h2>
   </div>
 
   <div class = "letter-container">
-    <input class="letter-box" type="text" maxlength="1"></input>
-    <input class="letter-box" type="text" maxlength="1"></input>
-    <input class="letter-box" type="text" maxlength="1"></input>
-    <input class="letter-box" type="text" maxlength="1"></input>
-    <input class="letter-box" type="text" maxlength="1"></input>
+    <input class="letter-box" type="text" maxlength="1">
+    <input class="letter-box" type="text" maxlength="1">
+    <input class="letter-box" type="text" maxlength="1">
+    <input class="letter-box" type="text" maxlength="1">
+    <input class="letter-box" type="text" maxlength="1">
   </div>
-  <!-- <h1 id="wortheute">Platzhalter</h1> -->
-  <!--<h1 id="wortheute_check">Platzhalter</h1>-->
 
   <script>
 let wortliste = [];
@@ -68,8 +66,6 @@ fetch("wortliste.txt")
     wortliste = text.split("\n").map(wort => wort.trim().toLowerCase()).filter(wort => wort.length === 5);
     let index_today = getDailyIndex(wortliste.length);
     wort_today = wortliste[index_today];
-    document.getElementById("wortheute").textContent = wort_today;
-
     setupInputListeners();
   });
 
@@ -144,7 +140,6 @@ function setupInputListeners() {
                 }
               }
             )
-            document.getElementById("wortheute_check").textContent = wort_check;
         }
         // Felder einfärben und fixieren
         inputs.forEach((input, index) => {
