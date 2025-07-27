@@ -115,18 +115,14 @@ function setupInputListeners() {
             // check every letter
             let haeufigkeit = {};
             // haeufigkeit dictionary für input erstellen
-            inputs.forEach(input => {
-              const buchstabe = input.value.toLowerCase();
+            for (let buchstabe of wort_today) {
+              buchstabe = buchstabe.toLowerCase();
               if (haeufigkeit[buchstabe]) {
                 haeufigkeit[buchstabe]++;
               } else {
-                if (wort_today.includes(buchstabe)) {
-                  haeufigkeit[buchstabe] = 1;
-                } else {
-                  haeufigkeit[buchstabe] = 0;
-                }
+                haeufigkeit[buchstabe] = 1;
               }
-            })
+            }
             // Prüfe buchstaben einzeln
             inputs.forEach(
               (input, index) => {
@@ -139,7 +135,7 @@ function setupInputListeners() {
                   haeufigkeit[buchstabe]--;
                 }
               }
-            )
+            );
             inputs.forEach((input, index) => {
               const buchstabe = input.value.toLowerCase();
               const vergleich_buchstabe = wort_today[index].toLowerCase();
