@@ -95,11 +95,20 @@ function setupInputListeners() {
         let wort_check = [-1, -1, -1, -1, -1];
 
         if (eingabe.length < 5) {
-          alert("Wort muss 5 lang sein");
+          alert("Wort muss 5 Buchstaben lang sein");
           return;
         }
         if (eingabe === wort_today) {
-          alert("du bist es junge");
+          // Felder einfärben und fixieren
+          inputs.forEach((input, index) => {
+          const farbe = wort_check[index] === 1 ? "#90EE90" //lightgreen
+                      : wort_check[index] === 2 ? "#ffff00" //yellow
+                      : "#778899"; //lightslategrey
+          
+          input.style.backgroundColor = farbe
+          input.style.color = "white"
+          input.disabled = true
+          });
           return;
         }
         if (!wortliste.includes(eingabe)) {
@@ -107,7 +116,6 @@ function setupInputListeners() {
           return;
         }
         else{
-            // muss noch geändert werden, sodass buchstaben richtig und falsch angezeigt werden
             // check every letter
             let haeufigkeit = {};
             // haeufigkeit dictionary für input erstellen
@@ -143,6 +151,7 @@ function setupInputListeners() {
                 }
               }
             )
+            versuchAnzahl++;
         }
         // Felder einfärben und fixieren
         inputs.forEach((input, index) => {
