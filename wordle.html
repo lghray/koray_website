@@ -101,9 +101,9 @@ function setupInputListeners() {
         if (eingabe === wort_today) {
           // Felder einfärben und fixieren
           inputs.forEach((input, index) => {
-          input.style.backgroundColor = "#90EE90"
-          input.style.color = "white"
-          input.disabled = true
+          input.style.backgroundColor = "#90EE90";
+          input.style.color = "white";
+          input.disabled = true;
           });
           return;
         }
@@ -138,15 +138,19 @@ function setupInputListeners() {
                   wort_check[index] = 1;
                   haeufigkeit[buchstabe]--;
                 }
-                // Prüfe ob buchstabe in wort
-                else if (haeufigkeit[buchstabe] > 0) {
+              }
+            )
+            inputs.forEach((input, index) => {
+              const buchstabe = input.value.toLowerCase();
+              const vergleich_buchstabe = wort_today[index].toLowerCase();
+              if (wort_check[index] === 1) return;
+              if (haeufigkeit[buchstabe] > 0) {
                   wort_check[index] = 2;
                   haeufigkeit[buchstabe]--;
                 } else {
                   wort_check[index] = 0;
                 }
-              }
-            )
+            });
             versuchAnzahl++;
         }
         // Felder einfärben und fixieren
