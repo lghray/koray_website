@@ -22,8 +22,8 @@
         width: 60px;
         height: 60px;
         border: 2px solid gray; 
-        font-size: 32px;
-        line-height: 50px;
+        font-size: 36px;
+        line-height: 60px;
         text-align: center;
         user-select: none;
     }
@@ -156,26 +156,38 @@ function setupInputListeners() {
                       : wort_check[index] === 2 ? "gold"
                       : "gray";
           
-          input.style.backgroundColor = farbe;
           input.disabled = true;
+          input.value = input.value.toUpperCase();
+          input.style.backgroundColor = farbe;
           input.style.color = "white";
           input.style.fontWeight = "bold";
           input.style.textTransform = "uppercase";
         });
 
         // Neues Eingabefeld erstellen und in body einfügen
-        const neueZeile = document.createElement("div");
-        neueZeile.classList.add("letter-container");
+        const zeile = document.createElement("div");
+        zeile.classList.add("letter-container");
 
         for (let i = 0; i < 5; i++) {
-          const neuesInput = document.createElement("input");
-          neuesInput.classList.add("letter-box");
-          neuesInput.setAttribute("type", "text");
-          neuesInput.setAttribute("maxlength", "1");
-          neueZeile.appendChild(neuesInput);
+          const buchstabe = inputs[i].value.toUpperCase();
+          const farbe = wort_check[i] === 1 ? "green"
+                      : wort_check[i] === 2 ? "gold"
+                      : "gray";
+
+          const box = document.createElement("div");
+          box.classList.add("letter-box");
+          box.textContent = buchstabe;
+          box.style.backgroundColor = farbe;
+          box.style.color = "white";
+          box.style.fontWeight = "bold";
+          box.style.textTransform = "uppercase";
+          box.style.lineHeight = "60px";
+          box.style.border = "2px solid black";
+          zeile.appendChild(box);
         }
 
-        document.body.appendChild(neueZeile)
+        document.body.appendChild(zeile);
+
         setupInputListeners();
 
         inputs.forEach(i => i.value = "");
