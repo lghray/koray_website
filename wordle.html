@@ -35,7 +35,7 @@
 <body>
   <div style="display: flex; gap: 10px; text-align: center; justify-content: center;">
     <h1 class="seite_ueberschrift">WORDLE</h1>
-    <h2 style="color: gray;position: absolute; top: 0; right: 0;">by Koray</h2>
+    <h2 style="color: gray;position: absolute; top: 5; right: 75;">by Koray</h2>
   </div>
 
   <div class = "letter-container">
@@ -69,11 +69,10 @@ fetch("wortliste.txt")
     let index_today = getDailyIndex(wortliste.length);
     wort_today = wortliste[index_today];
     document.getElementById("wortheute").textContent = wort_today;
+    wort_today = "nenne"
 
     setupInputListeners();
   });
-  //test
-  wort_today = "nenne"
 
 function setupInputListeners() {
   const alleInputs = document.querySelectorAll(".letter-box");
@@ -150,12 +149,12 @@ function setupInputListeners() {
         }
         // Felder einfärben und fixieren
         inputs.forEach((input, index) => {
-          const farbe = wort_check[index] === 1 ? "green"
-                      : wort_check[index] === 2 ? "gold"
-                      : "gray";
+          const farbe = wort_check[index] === 1 ? "lightgreen"
+                      : wort_check[index] === 2 ? "yellow"
+                      : "lightslategrey";
           
           input.style.backgroundColor = farbe
-          input.style.color = "black"
+          input.style.color = "white"
           input.disabled = true
         })
 
