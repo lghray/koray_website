@@ -29,6 +29,10 @@
   </style>
 </head>
 <body>
+  <div style="display: flex; gap: 10px;">
+    <h1 class="seite_ueberschrift">WORDLE</h1>
+    <h1 style="color: gray;">by Koray</h1>
+  </div>
   <h1 class="seite_ueberschrift">WORDLE</h1> <h1 style="color: gray;">by Koray</h1>
   <div class = "letter-container">
     <input class="letter-box" type="text" maxlength="1"></input>
@@ -135,9 +139,8 @@ function setupInputListeners() {
                 }
               }
             )
+            document.getElementById("wortheute_check").textContent = wort_check;
         }
-
-        document.getElementById("wortheute_check").textContent = wort_check;
         inputs.forEach(i => i.value = "");
         inputs[0].focus();
       }
