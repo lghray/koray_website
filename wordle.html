@@ -145,12 +145,14 @@ function setupInputListeners() {
         }
         // Felder einfärben und fixieren
         inputs.forEach((input, index) => {
+          const buchstabe = input.value
           const farbe = wort_check[index] === 1 ? "green"
                       : wort_check[index] === 2 ? "gold"
                       : "gray";
           
           input.style.backgroundColor = farbe
           input.disabled = true
+          input.value = buchstabe
         })
 
         // Neues Eingabefeld erstellen und in body einfügen
@@ -168,7 +170,7 @@ function setupInputListeners() {
         document.body.appendChild(neueZeile)
         setupInputListeners();
 
-        //inputs.forEach(i => i.value = "");
+        inputs.forEach(i => i.value = "");
         inputs[0].focus();
       }
     });
