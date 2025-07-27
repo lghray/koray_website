@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wordle</title>
+  <title>Wordle by Koray</title>
   <style>
     body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -29,7 +29,7 @@
   </style>
 </head>
 <body>
-  <h1 class="seite_ueberschrift">WORDLE</h1>
+  <h1 class="seite_ueberschrift">WORDLE</h1> <h1 style="color: gray;">by Koray</h1>
   <div class = "letter-container">
     <input class="letter-box" type="text" maxlength="1"></input>
     <input class="letter-box" type="text" maxlength="1"></input>
@@ -38,6 +38,7 @@
     <input class="letter-box" type="text" maxlength="1"></input>
   </div>
   <h1 id="wortheute">Platzhalter</h1>
+  <h1 id="wortheute_check">Platzhalter</h1>
 
   <script>
 let wortliste = [];
@@ -98,9 +99,45 @@ function setupInputListeners() {
         }
         else{
             // muss noch geändert werden, sodass buchstaben richtig und falsch angezeigt werden
-            alert("Echtes Wort")
+            // check every letter
+            let wort_check = [-1, -1, -1, -1, -1];
+            let haeufigkeit = {};
+            // haeufigkeit dictionary für input erstellen
+            inputs.forEach(input => {
+              const buchstabe = input.value.toLowerCase();
+              if (haeufigkeit[buchstabe]) {
+                haeufigkeit[buchstabe]++;
+              } else {
+                if (wort_today.includes(buchstabe)) {
+                  haeufigkeit[buchstabe] = 1;
+                } else {
+                  haeufigkeit[buchstabe] = 0;
+                }
+              }
+            })
+            // Prüfe buchstaben einzeln
+            inputs.forEach(
+              (input, index) => {
+                const buchstabe = input.value.toLowerCase();
+                const vergleich_buchstabe = wort_today[index].toLowerCase();
+                // Prüfe ob buchstabe richtige stelle
+                if (buchstabe === vergleich_buchstabe) {
+                  // 1 = grün
+                  wort_check[index] = 1;
+                  haeufigkeit[buchstabe]--;
+                }
+                // Prüfe ob buchstabe in wort
+                else if (haeufigkeit[buchstabe] > 0) {
+                  wort_check[index] = 2;
+                  haeufigkeit[buchstabe]--;
+                } else {
+                  wort_check[index] = 0;
+                }
+              }
+            )
         }
 
+        document.getElementById("wortheute_check").textContent = wort_check;
         inputs.forEach(i => i.value = "");
         inputs[0].focus();
       }
