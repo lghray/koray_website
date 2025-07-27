@@ -33,10 +33,10 @@
   </style>
 </head>
 <body>
-  <div style="display: flex; gap: 10px; text-align: center; justify-content: center;position: relative;">
-    <h1 class="seite_ueberschrift">WORDLE</h1>
-    <h2 style="color: gray;position: absolute; top: 0px; right: 0px;">by Koray</h2>
-  </div>
+  <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+  <h1 style="margin: 0;">WORDLE</h1>
+  <span style="color: gray; font-size: 16px;">by Koray</span>
+</div>
 
   <div class = "letter-container">
     <input class="letter-box" type="text" maxlength="1">
@@ -49,6 +49,9 @@
   <script>
 let wortliste = [];
 let wort_today = "";
+let versuchAnzahl = 1;
+const MAX_VERSUCHE = 6;
+
 
 function getDailyIndex(wordlistlength) {
   const today = new Date();
@@ -153,6 +156,9 @@ function setupInputListeners() {
         })
 
         // Neues Eingabefeld erstellen und in body einfügen
+        if(versuchAnzahl > MAX_VERSUCHE) {
+          return;
+        }
         const neueZeile = document.createElement("div");
         neueZeile.classList.add("letter-container");
 
@@ -168,7 +174,11 @@ function setupInputListeners() {
         setupInputListeners();
 
         //inputs.forEach(i => i.value = "");
-        inputs[0].focus();
+        // Fokus auf das erste Feld der neuen Zeile setzen
+        const neueInputs = neueZeile.querySelectorAll(".letter-box");
+        if (neueInputs.length > 0) {
+          neueInputs[0].focus();
+        }
       }
     });
   });
